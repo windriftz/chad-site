@@ -105,7 +105,9 @@ def build_page(dest_path, template_path=None, template=None, context=None):
 
 def walk_ast(ctx, element):
     if isinstance(element, (Image, ImageWithJsonAttr)):
-        alt = element.children[0].children
+        alt = None
+        if len(element.children) > 0:
+            alt = element.children[0].children
         url = element.dest
         title = element.title
         no_track = False
