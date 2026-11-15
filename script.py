@@ -41,7 +41,11 @@ dist_posts_dir = dist_dir.joinpath("posts")
 cf_page_proj = "chad-site"
 bmc_link = "https://buymeacoffee.com/windriftz"
 working_email = "windriftz.online@gmail.com"
-featured_post_slugs = ["01-welcome-to-site", "02-studying-traditional-chinese"]
+featured_post_slugs = [
+    "01-welcome-to-site",
+    "02-studying-traditional-chinese",
+    "03-my-home-goldfish-pond",
+]
 platforms = [
     {
         "name": "github",
@@ -111,17 +115,28 @@ def walk_ast(ctx, element):
             ctx.get("images").append(
                 {"url": url, "alt": alt, "title": title, "page_url": ctx["page_url"]}
             )
+        ctx["is_image"] = True
     text_blocks = ctx.get("text_blocks")
     text_blocks_len = len(text_blocks)
     if isinstance(element, BlockElement):  # noqa: SIM102
         if text_blocks_len == 0 or text_blocks[-1] != "":
             text_blocks.append("")
     if isinstance(element, RawText):  # noqa: SIM102
-        if text_blocks_len > 0 and isinstance(text_blocks[-1], str):
+        if (
+            not ctx.get("is_image")
+            and text_blocks_len > 0
+            and isinstance(text_blocks[-1], str)
+        ):
             text_blocks[-1] += element.children
     if hasattr(element, "children"):
         for child in element.children:
             walk_ast(ctx, child)
+    text_blocks_len = len(text_blocks)
+    if isinstance(element, BlockElement):  # noqa: SIM102
+        if text_blocks_len > 0 and text_blocks[-1] == "":
+            text_blocks.pop()
+    if isinstance(element, (Image, ImageWithJsonAttr)):
+        ctx["is_image"] = False
 
 
 class ImageWithJsonAttr(InlineElement):
@@ -191,6 +206,7 @@ def process_posts(ctx):
             "page_url": f"/posts/{slug}",
             "images": [],
             "text_blocks": [],
+            "is_image": False,
         }
         walk_ast(walk_ast_ctx, ast)
 
