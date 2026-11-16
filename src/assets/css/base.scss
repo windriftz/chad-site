@@ -29,6 +29,8 @@ body {
 
                 .logo {
                     width: 100%;
+                    image-rendering: pixelated;
+                    image-rendering: crisp-edges;
                 }
             }
         }
