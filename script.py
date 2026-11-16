@@ -46,10 +46,11 @@ featured_post_slugs = [
     "02-studying-traditional-chinese",
     "03-my-home-goldfish-pond",
 ]
+gh_username = "windriftz"
 platforms = [
     {
         "name": "github",
-        "link": "",
+        "link": f"https://github.com/{gh_username}",
     },
     {
         "name": "youtube",
@@ -74,7 +75,7 @@ platforms = [
 ]
 
 jj2_env = Environment(loader=FileSystemLoader(templates_dir))
-base_render_ctx = {"current_year": datetime.now().year}
+base_render_ctx = {"current_year": datetime.now().year, "gh_username": gh_username}
 
 
 class NoGivenTemplateException(Exception):
@@ -214,7 +215,8 @@ def process_posts(ctx):
 
         ctx.get("images").extend(walk_ast_ctx.get("images"))
 
-        html = md.convert(post.content)
+        rendered_content = jj2_env.from_string(post.content).render(base_render_ctx)
+        html = md.convert(rendered_content)
 
         abstract = post.get("abstract")
         if abstract is None:
