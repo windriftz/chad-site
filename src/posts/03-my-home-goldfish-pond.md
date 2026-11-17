@@ -26,5 +26,7 @@ The **creamy goldfish** is the least attractive-looking goldfish in the pond. De
 
 There are still two goldfish that I didn't take. They are all bubble head oranda goldfish, and they could be the highlight of this pond due to their cute bubble head and gorgeous fin and tail. Unfortunately, one is quite old, and it always stay at the bottom of the pond, so I couldn't take a snap of it. The other one is sick and is in quarantine for treatment.
 
+**Update:** The one in quarantine died last night from the severe rain. Rest in peace, my little friend.
+
 I shoot these pictures by my iPhone 11 and done some editing with [RawTherapee](https://rawtherapee.com/). I wish I could have a polarizing filter for the camera lens, because the water reflection got me irritated. Also I wish I could have some nice rugged camera just to dip into the pond and shoot the picture in the different underwater perspective.
 
