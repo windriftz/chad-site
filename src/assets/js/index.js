@@ -1,9 +1,10 @@
 let images = null
-const coverImg = document.querySelector("#cover-img");
-const title = document.querySelector("#cover-img-title");
-const readMore = document.querySelector("#cover-img-read-more-link");
 
 async function roll() {
+    const coverImg = document.querySelector("#cover-img");
+    const title = document.querySelector("#cover-img-title");
+    const readMore = document.querySelector("#cover-img-read-more-link");
+    
     if(!images) {
         const response = await fetch("/assets/data/images.json");
         const json = await response.json();
@@ -22,7 +23,4 @@ async function roll() {
     readMore.setAttribute("href",image.page_url)
 }
 
-
 roll();
-document.querySelector("#roll").addEventListener("click", roll);
-

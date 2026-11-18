@@ -1,69 +1,77 @@
 @import "./mixins.scss";
 
-.main.posts {
-    .post-card {
-        display: block;
-        text-decoration: none;
-        margin-bottom: 2rem;
-        height: 6rem;
+html {
+    &.dark-mode {
+        body .container .main.posts .post-card .layout .text .bottom .abstract {
+            color: white;
+        }
+    }
 
-        .layout {
-            display: flex;
-            flex-direction: row;
-            gap: 0.5rem;
-            height: 100%;
+    body .container .main.posts {
+        .post-card {
+            display: block;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            height: 6rem;
 
-            .text {
+            .layout {
                 display: flex;
-                flex-direction: column;
-                flex: 1 1 0;
-                min-width: 0;
-
-                .top {
-                    flex: 1 1 auto;
-                    min-height: 0;
-
-                    .title {
-                        text-decoration: underline;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                    }
-
-                    .subtitle {
-                        font-size: 0.8rem;
-                        color: dimgray;
-                        overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                    }
-                }
-
-                .bottom {
-                    flex: 0 1 auto;
-                    min-height: 0;
-                    overflow: hidden;
-
-                    .abstract {
-                        color: black;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
-                        line-clamp: 2;
-                        -webkit-line-clamp: 2;
-                    }
-                }
-            }
-
-            .thumbnail {
-                flex: 0 0 8rem;
-                display: block;
-                background-color: gray;
-                object-fit: cover;
+                flex-direction: row;
+                gap: 0.5rem;
                 height: 100%;
 
-                @media (max-width: 512px) {
-                    display: none;
+                .text {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1 1 0;
+                    min-width: 0;
+
+                    .top {
+                        flex: 1 1 auto;
+                        min-height: 0;
+
+                        .title {
+                            text-decoration: underline;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                        }
+
+                        .subtitle {
+                            font-size: 0.8rem;
+                            color: dimgray;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                        }
+                    }
+
+                    .bottom {
+                        flex: 0 1 auto;
+                        min-height: 0;
+                        overflow: hidden;
+
+                        .abstract {
+                            color: black;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            line-clamp: 2;
+                            -webkit-line-clamp: 2;
+                        }
+                    }
+                }
+
+                .thumbnail {
+                    flex: 0 0 8rem;
+                    display: block;
+                    background-color: gray;
+                    object-fit: cover;
+                    height: 100%;
+
+                    @media (max-width: 512px) {
+                        display: none;
+                    }
                 }
             }
         }
