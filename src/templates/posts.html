@@ -18,7 +18,7 @@
         <div class="text">
             <div class="top">
                 <div class="title">{{ post.title }}</div>
-                <div class="subtitle">{{ post.date_fmt }}</div>
+                <div class="subtitle">{{ post.pub_date_fmt }}</div>
             </div>
             <div class="bottom">
                 <div class="abstract">{{ post.abstract }}</div>
@@ -31,5 +31,8 @@
 </a>
 {% endfor %}
 {{ macros.back_to_top() }}
+<div class="rss">
+    check out <a href="/posts/rss.xml">rss</a> if you are feed nerd.</a>
+</div>
 <hr>
 {% endblock %}

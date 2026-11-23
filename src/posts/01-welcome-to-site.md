@@ -1,9 +1,9 @@
 ---
 title: Welcome to my personal website
-date: 2026-11-03
 tags: []
 draft: false
 short_description: This is where everything started.
+pub_date: 2026-11-03
 ---
 Thank you for dropping by.
 

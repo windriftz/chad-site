@@ -1,9 +1,9 @@
 ---
 title: A short story about myself learning Traditional Chinese
-date: 2026-11-12
 tags: []
 draft: false
 short_description: Training myself to recognize Kanji faster
+pub_date: 2026-11-12
 ---
 Chinese is my third language (the first two languages are Thai and English), and I think these are the only languages I could learn in my life. I used to study Simplified Chinese at a Chinese school since I was a child. Because I studied at a Chinese school and Chinese classes took up a major part of my schedule, I think I was more fluent in Chinese than English at the time. Even to these days, I still remember some words and how to speak. I studied at a Chinese school until grade 9, then moved to another upper secondary school, a public school that focuses more on scientific knowledge.
 

@@ -4,12 +4,13 @@ import re
 import shutil
 import subprocess
 from contextlib import contextmanager
-from datetime import datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import frontmatter
 import sass
 from dotenv import load_dotenv
+from feedgen.feed import FeedGenerator
 from jinja2 import Environment, FileSystemLoader
 from loguru import logger
 from marko import Markdown
@@ -38,6 +39,8 @@ dist_assets_data_dir = dist_assets_dir.joinpath("data")
 dist_posts_dir = dist_dir.joinpath("posts")
 
 # config
+author = "windriftz"
+site_url = "https://windriftz.com"
 cf_page_proj = "chad-site"
 bmc_link = "https://buymeacoffee.com/windriftz"
 working_email = "windriftz.online@gmail.com"
@@ -182,7 +185,6 @@ def process_posts(ctx):
         elements=[ImageWithJsonAttr], renderer_mixins=[CustomImageRendererMixin]
     )
     md = Markdown(extensions=[mk_ext])
-    post_tpl = jj2_env.get_template("post.html")
     for file in posts_dir.iterdir():
         stat = file.stat()
         post = frontmatter.load(file)
@@ -190,6 +192,7 @@ def process_posts(ctx):
         if post.get("draft"):
             continue
 
+        # process slug
         slug = post.get("slug")
         if slug is None:
             slug = file.stem
@@ -198,13 +201,23 @@ def process_posts(ctx):
         if slug in ctx.get("posts_map"):
             raise PostSlugDuplication
 
+        # process order
         order = None
         split = slug.split("-")
         if len(split) > 0 and split[0].isdigit():
             order = int(split[0])
         post["order"] = order
 
-        ast = md.parse(post.content)
+        # process content rendering
+        content_rendered = post.get("content")
+        if post.get("render_content", True):
+            content_rendered = jj2_env.from_string(post.content).render(base_render_ctx)
+        post["content_rendered"] = content_rendered
+        html = md.convert(content_rendered)
+        post["html"] = html
+
+        # walk ast
+        ast = md.parse(content_rendered)
         walk_ast_ctx = {
             "page_url": f"/posts/{slug}",
             "images": [],
@@ -213,46 +226,85 @@ def process_posts(ctx):
         }
         walk_ast(walk_ast_ctx, ast)
 
+        # extend extracted images
         ctx.get("images").extend(walk_ast_ctx.get("images"))
 
-        rendered_content = jj2_env.from_string(post.content).render(base_render_ctx)
-        html = md.convert(rendered_content)
-
+        # process abstract
         abstract = post.get("abstract")
         if abstract is None:
             abstract = " ".join(walk_ast_ctx.get("text_blocks"))
         post["abstract"] = abstract
+        trunc_abstr_len = 64
+        if len(abstract) > trunc_abstr_len:
+            post["trunc_abstract"] = abstract[:trunc_abstr_len] + "..."
+        else:
+            post["trunc_abstract"] = abstract
 
-        date = post.get("date")
-        if date is None:
+        # process pub date
+        pub_date = post.get("pub_date")
+        if pub_date is None:
             created_ts = getattr(stat, "st_birthtime", stat.st_ctime)
-            date = datetime.fromtimestamp(created_ts)
-            post["date"] = date
-        post["date_fmt"] = date.strftime("%b %d, %Y")
+            pub_date = datetime.fromtimestamp(created_ts)
+            post["pub_date"] = pub_date
+        elif isinstance(pub_date, date):
+            post["pub_date"] = datetime.combine(
+                pub_date, datetime.min.time(), tzinfo=UTC
+            )
+        post["pub_date_fmt"] = pub_date.strftime("%b %d, %Y")
 
-        dist_post_dir = dist_posts_dir.joinpath(slug)
+        ctx.get("posts").append(post)
+        ctx.get("posts_map")[slug] = post
+
+
+def build_post_pages(ctx):
+    post_tpl = jj2_env.get_template("post.html")
+    for post in ctx.get("posts"):
+        dist_post_dir = dist_posts_dir.joinpath(post.get("slug"))
         build_page(
             dist_post_dir.joinpath("index.html"),
             template=post_tpl,
             context={
                 **base_render_ctx,
                 **post,
-                "post_html": html,
+                "post_html": post.get("html"),
                 "page_title": post.get("title"),
             },
         )
 
-        ctx.get("posts").append(post)
-        ctx.get("posts_map")[slug] = post
+
+def build_post_rss(ctx):
+    fg = FeedGenerator()
+    fg.title("windriftz.com's latest posts")
+    posts_url = f"{site_url}/posts"
+    fg.link(href=posts_url)
+    fg.description("windriftz.com's latest posts")
+    for post in ctx.get("posts"):
+        slug = post.get("slug")
+
+        fe = fg.add_entry()
+        fe.id(slug)
+        fe.title(post.get("title"))
+        fe.link(href=f"{posts_url}/{slug}")
+        fe.author({"name": author, "email": working_email})
+        fe.description(post.get("short_description", post.get("trunc_abstract")))
+        fe.content(post.get("html"), type="CDATA")
+        fe.pubDate(post.get("pub_date"))
+        fe.category({"term": "post"})
+    dist_posts_rss = dist_posts_dir.joinpath("rss.xml")
+    with ensure_dir_and_open_file(dist_posts_rss):
+        fg.rss_file(dist_posts_rss)
 
 
 def build(args):
     process_posts_ctx = {"posts": [], "posts_map": {}, "images": []}
     process_posts(process_posts_ctx)
 
+    build_post_pages(process_posts_ctx)
+    build_post_rss(process_posts_ctx)
+
     sorted_posts = sorted(
         process_posts_ctx.get("posts"),
-        key=lambda p: (-p.get("order"), -p.get("date").toordinal()),
+        key=lambda p: (-p.get("order"), -p.get("pub_date").toordinal()),
     )
 
     build_page(
