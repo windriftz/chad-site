@@ -190,6 +190,11 @@ html {
 
             .section .header {
                 margin: 0;
+
+                .gif {
+                    vertical-align: middle;
+                    margin-left: 0.5rem;
+                }
             }
 
 
@@ -230,6 +235,17 @@ html {
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
+                    }
+                }
+
+                .daily-gif {
+                    .gif-holder {
+                        margin-top: 0.5rem;
+
+                        .gif {
+                            max-width: 100%;
+                            max-height: 10rem;
+                        }
                     }
                 }
 
