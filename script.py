@@ -76,9 +76,65 @@ platforms = [
         "link": "",
     },
 ]
+navbar = [
+    {
+        "type": "link",
+        "name": "home",
+        "description": "the best place",
+        "icon": "/assets/images/home.png",
+        "href": "/",
+    },
+    {
+        "type": "link",
+        "name": "about",
+        "description": "stories about myself",
+        "icon": "/assets/images/about.gif",
+        "href": "/about",
+    },
+    {
+        "type": "link",
+        "name": "posts",
+        "description": "read my latest posts",
+        "icon": "/assets/images/posts.gif",
+        "href": "/posts",
+    },
+    {
+        "type": "link",
+        "name": "gallery",
+        "description": "checkout my photos",
+        "icon": "/assets/images/gallery.png",
+        "href": "/gallery",
+    },
+    {
+        "type": "link",
+        "name": "projects",
+        "description": "lot of stupid hacks",
+        "icon": "/assets/images/projects.gif",
+        "href": "/projects",
+    },
+    {
+        "type": "link",
+        "name": "philosophy",
+        "description": "the life compass",
+        "icon": "/assets/images/philosophy.gif",
+        "href": "/gallery",
+    },
+    {
+        "type": "button",
+        "name": "dark",
+        "description": "toggle dark/light mode",
+        "icon": "/assets/images/dark-mode.gif",
+        "text_class": "dark-mode-switch-text",
+        "onclick": "toggleDarkMode()",
+    },
+]
 
 jj2_env = Environment(loader=FileSystemLoader(templates_dir))
-base_render_ctx = {"current_year": datetime.now().year, "gh_username": gh_username}
+base_render_ctx = {
+    "current_year": datetime.now().year,
+    "navbar_items": navbar,
+    "gh_username": gh_username,
+}
 
 
 class NoGivenTemplateException(Exception):
@@ -334,6 +390,7 @@ def build(args):
     build_page(
         dist_dir.joinpath("404.html"),
         template_path="404.html",
+        context=base_render_ctx,
     )
 
     with ensure_dir_and_open_file(dist_assets_data_dir.joinpath("images.json")) as file:

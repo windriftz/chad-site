@@ -11,17 +11,17 @@ function getSavedDarkMode() {
 }
 
 function updateDarkMode(darkMode) {
-    const darkModeSwitch = document.querySelector("#dark-mode-switch");
+    const darkModeSwitchTexts = document.querySelectorAll(".dark-mode-switch-text");
     const docElement = document.documentElement;
     if (darkMode) {
         docElement.classList.add("dark-mode");
-        if (darkModeSwitch) {
-            darkModeSwitch.setHTMLUnsafe("light");
+        for(const el of darkModeSwitchTexts) {
+            el.setHTMLUnsafe("light");
         }
     } else {
         docElement.classList.remove("dark-mode");
-        if (darkModeSwitch) {
-            darkModeSwitch.setHTMLUnsafe("dark");
+        for(const el of darkModeSwitchTexts) {
+            el.setHTMLUnsafe("dark");
         }
     }
 }

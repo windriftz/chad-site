@@ -12,11 +12,16 @@
 
 {% macro navbar() %}
 <ul class="nav">
-    <li class="item"><a href="/">home</a></li>
-    <li class="item"><a href="/about">about</a></li>
-    <li class="item"><a href="/posts">posts</a></li>
-    <li class="item"><a href="/gallery">gallery</a></li>
-    <li class="item"><a id="dark-mode-switch" href="javascript:;" onclick="toggleDarkMode()">dark</a>
+    {% for item in navbar_items %}
+    <li class="item">
+        {% if item.get("type") == "link" %}
+        <a href="{{ item.get('href') }}">{{ item.get("name") }}</a>
+        {% elif item.get("type") == "button" %}
+        <a href="javascript:;" class="{{ item.get('text_class') }}" onclick="{{ item.get('onclick')}}">{{
+            item.get("name") }}</a>
+        {% endif %}
+    </li>
+    {% endfor %}
 </ul>
 {% endmacro %}
 

@@ -3,6 +3,7 @@
 {% extends "base.html" %}
 {% set main_class = "index" %}
 {% set page_title = "home" %}
+{% set enable_site_header = false %}
 
 {% block head %}
 <link rel="stylesheet" href="/assets/css/index.css">
@@ -10,34 +11,65 @@
 {% endblock %}
 
 {% block main %}
-<div class="preface">
-    welcome to windriftz.com's homepage<br>
-    100% human made, safe to consume.
-</div>
-{{ macros.navbar() }}
-<div class="win98 cover-img-randomizer">
-    <div class="window">
-        <div class="title-bar">
-            <div class="title-bar-text">Cover Image Randomizer</div>
-            <div class="title-bar-controls">
-                <button aria-label="Close"></button>
-            </div>
+<div class="cover">
+    <div class="left">
+        <a class="logo" href="/">
+            <img class="img" src="/assets/images/logo.png">
+        </a>
+        <div class="preface">
+            welcome to windriftz.com's homepage<br>
+            100% human made, safe to consume.
         </div>
-        <div class="window-body">
-            <img id="cover-img" class="image">
-            <div class="title">
-                <span id="cover-img-title">no image available at this moment, stay tuned.</span>
-                <a id="cover-img-read-more-link" href="/" class="read-more hidden">read more</a>
-            </div>
-            <div class="buttons">
-                <button id="roll" class="roll" title="Randomize the cover image, they are obtained from posts"
-                    onclick="roll()">🎲
-                    roll</button>
+        <ul class="dt-nav">
+            {% for item in navbar_items %}
+            <li class="item">
+                {% if item.get("type") == "link" %}
+                <a class="link" href="{{ item.get('href') }}">
+                    <div class="header">
+                        <img class="icon" src="{{ item.get('icon') }}">
+                        <span class="text">{{ item.get('name') }}</span>
+                    </div>
+                    <div class="subheader">{{ item.get('description') }}</div>
+                </a>
+                {% elif item.get("type") == "button" %}
+                <a class="link" href="javascript:;" onclick="{{ item.get('onclick') }}">
+                    <div class="header">
+                        <img class="icon" src="{{ item.get('icon') }}">
+                        <span class="text {{ item.get('text_class') }}">{{ item.get('name') }}</span>
+                    </div>
+                    <div class="subheader">{{ item.get('description') }}</div>
+                </a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {{ macros.navbar() }}
+    </div>
+    <div class="right">
+        <div class="win98 cover-img-randomizer">
+            <div class="window">
+                <div class="title-bar">
+                    <div class="title-bar-text">Cover Image Randomizer</div>
+                    <div class="title-bar-controls">
+                        <button aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="window-body">
+                    <img id="cover-img" class="image">
+                    <div class="title">
+                        <span id="cover-img-title">no image available at this moment, stay tuned.</span>
+                        <a id="cover-img-read-more-link" href="/" class="read-more hidden">read more</a>
+                    </div>
+                    <div class="buttons">
+                        <button id="roll" class="roll" title="Randomize the cover image, they are obtained from posts"
+                            onclick="roll()">🎲
+                            roll</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <div class="content">
     <div class="left">
         <div class="section paragraph">

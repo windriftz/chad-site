@@ -17,7 +17,9 @@
     <div class="container">
         <main class="main {{ main_class | default('base') }}">
             <a id="top"></a>
+            {% if enable_site_header | default(true) %}
             {{ macros.site_header() }}
+            {% endif %}
             {% block main %}{% endblock %}
             {{ macros.site_footer() }}
         </main>
