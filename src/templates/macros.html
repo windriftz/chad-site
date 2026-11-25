@@ -11,18 +11,20 @@
 {% endmacro %}
 
 {% macro navbar() %}
-<ul class="nav">
-    {% for item in navbar_items %}
-    <li class="item">
-        {% if item.get("type") == "link" %}
-        <a href="{{ item.get('href') }}">{{ item.get("name") }}</a>
-        {% elif item.get("type") == "button" %}
-        <a href="javascript:;" class="{{ item.get('text_class') }}" onclick="{{ item.get('onclick')}}">{{
-            item.get("name") }}</a>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+<div class="nav-holder">
+    <ul class="nav">
+        {% for item in navbar_items %}
+        <li class="item">
+            {% if item.get("type") == "link" %}
+            <a href="{{ item.get('href') }}">{{ item.get("name") }}</a>
+            {% elif item.get("type") == "button" %}
+            <a href="javascript:;" class="{{ item.get('text_class') }}" onclick="{{ item.get('onclick')}}">{{
+                item.get("name") }}</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endmacro %}
 
 {% macro site_footer() %}
