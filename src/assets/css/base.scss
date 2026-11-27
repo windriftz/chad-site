@@ -7,7 +7,7 @@
 html {
     &.dark-mode {
         body {
-            background-image: url("/assets/images/bg-dark.gif");
+            background-image: url("/assets/img/stolen/bg-dark.gif");
             background-color: rgba(0, 0, 0, 0.7);
             background-blend-mode: multiply;
 
@@ -37,7 +37,7 @@ html {
         font-family: Arial, Helvetica, sans-serif;
         line-height: 1.5;
         background-repeat: repeat;
-        background-image: url("/assets/images/bg-light.gif");
+        background-image: url("/assets/img/stolen/bg-light.gif");
         background-color: rgba(255, 255, 255, 0.7);
         background-blend-mode: screen;
 

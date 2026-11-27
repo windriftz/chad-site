@@ -25,7 +25,7 @@ current_dir = Path(__file__).resolve().parent
 src_dir = current_dir.joinpath("src")
 assets_dir = src_dir.joinpath("assets")
 assets_css_dir = assets_dir.joinpath("css")
-assets_images_dir = assets_dir.joinpath("images")
+assets_img_dir = assets_dir.joinpath("img")
 assets_js_dir = assets_dir.joinpath("js")
 posts_dir = src_dir.joinpath("posts")
 templates_dir = src_dir.joinpath("templates")
@@ -33,7 +33,7 @@ templates_dir = src_dir.joinpath("templates")
 dist_dir = current_dir.joinpath("dist")
 dist_assets_dir = dist_dir.joinpath("assets")
 dist_assets_css_dir = dist_assets_dir.joinpath("css")
-dist_assets_images_dir = dist_assets_dir.joinpath("images")
+dist_assets_img_dir = dist_assets_dir.joinpath("img")
 dist_assets_js_dir = dist_assets_dir.joinpath("js")
 dist_assets_data_dir = dist_assets_dir.joinpath("data")
 dist_posts_dir = dist_dir.joinpath("posts")
@@ -81,49 +81,49 @@ navbar = [
         "type": "link",
         "name": "home",
         "description": "the best place",
-        "icon": "/assets/images/home.png",
+        "icon": "/assets/img/stolen/home.png",
         "href": "/",
     },
     {
         "type": "link",
         "name": "about",
         "description": "stories about myself",
-        "icon": "/assets/images/about.gif",
+        "icon": "/assets/img/stolen/about.gif",
         "href": "/about",
     },
     {
         "type": "link",
         "name": "posts",
         "description": "read my latest posts",
-        "icon": "/assets/images/posts.gif",
+        "icon": "/assets/img/stolen/posts.gif",
         "href": "/posts",
     },
     {
         "type": "link",
         "name": "gallery",
         "description": "checkout my photos",
-        "icon": "/assets/images/gallery.png",
+        "icon": "/assets/img/stolen/gallery.png",
         "href": "/gallery",
     },
     {
         "type": "link",
         "name": "projects",
         "description": "lot of stupid hacks",
-        "icon": "/assets/images/projects.gif",
+        "icon": "/assets/img/stolen/projects.gif",
         "href": "/projects",
     },
     {
         "type": "link",
         "name": "philosophy",
         "description": "the life compass",
-        "icon": "/assets/images/philosophy.gif",
+        "icon": "/assets/img/stolen/philosophy.gif",
         "href": "/gallery",
     },
     {
         "type": "button",
         "name": "dark",
         "description": "toggle dark/light mode",
-        "icon": "/assets/images/dark-mode.gif",
+        "icon": "/assets/img/stolen/dark-mode.gif",
         "text_class": "dark-mode-switch-text",
         "onclick": "toggleDarkMode()",
     },
@@ -397,7 +397,7 @@ def build(args):
         file.write(json.dumps(process_posts_ctx.get("images")))
 
     sass.compile(dirname=(assets_css_dir, dist_assets_css_dir))
-    shutil.copytree(assets_images_dir, dist_assets_images_dir, dirs_exist_ok=True)
+    shutil.copytree(assets_img_dir, dist_assets_img_dir, dirs_exist_ok=True)
     shutil.copytree(assets_js_dir, dist_assets_js_dir, dirs_exist_ok=True)
 
 
