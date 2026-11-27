@@ -16,15 +16,16 @@ I also started writing because I hope it will foster my writing skills. Recently
 ### How was this website created?
 Even though there are a lot of frontend frameworks that help build static web pages, I still feel that I am not in full control, and it often wastes my time to study a chosen framework (my skill issue anyway). And even nowadays, I can just enter a prompt to an AI agent to build the website instantly, but in the end, I am not able to control how my website is going to be.
 
-So I went rough, building this website manually, just using a simple Python script with some basic tools like:
+So I went rough, building this website manually, just using a simple Python script with some basic tools or libraries such as:
 - [Marko](https://marko-py.readthedocs.io/en/latest/), there are tons of markdown library that I can use, but this one provide a simplicity of extensibility and workflow that I think it make sense, like having an intermediate AST that I can work with before render into HTML.
 - [Jinja2](https://jinja.palletsprojects.com), as a template engine, mainly used to produce HTML files.
 - [SASS](https://sass-lang.com), to compile .scss files to .css, making working with CSS more comfortable.
 
-I want to give a shout out to some free tools that I used to build this website, those are:
+I also want to give a shout out to some additional free tools or websites that I used to build this website, those are:
 - [Free WordArt Generator](https://www.makewordart.com/), I used this to generate a simple web logo as shown above.
 - [98.css](https://jdan.github.io/98.css/), The CSS to style your web page to make it looks like Windows 98.
 - [Web Design Museum](https://www.webdesignmuseum.org/), There are tons of old website design that I can take a look.
+- [Neocities](https://neocities.org/), There are a lot of created websites that provides GIFs, cliparts, backgrounds, or artworks that I can grab.
 
 I intended to make this website look a bit old and timeless. I have been able to crystallize the idea that older websites contain a lot of text and hyperlinks. The layout of website is not too spacey and less carefully designed, thinking like when we just drag and drop textboxes arbitrary on the MS Word.
 
