@@ -29,4 +29,4 @@ I also want to give a shout out to some additional free tools or websites that I
 
 I intended to make this website look a bit old and timeless. I have been able to crystallize the idea that older websites contain a lot of text and hyperlinks. The layout of website is not too spacey and less carefully designed, thinking like when we just drag and drop textboxes arbitrary on the MS Word.
 
-If you are interested in how my website was built, please check out this [repository](https://github.com/{{ gh_username }}/chad-site).
+If you are interested in how my website was built, please check out this [repository](https://github.com/{{ gh_username }}/{{ gh_site_repo }}).

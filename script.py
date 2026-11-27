@@ -50,6 +50,7 @@ featured_post_slugs = [
     "03-my-home-goldfish-pond",
 ]
 gh_username = "windriftz"
+gh_site_repo = "chad-site"
 platforms = [
     {
         "name": "github",
@@ -134,6 +135,7 @@ base_render_ctx = {
     "current_year": datetime.now().year,
     "navbar_items": navbar,
     "gh_username": gh_username,
+    "gh_site_repo": gh_site_repo,
 }
 
 
